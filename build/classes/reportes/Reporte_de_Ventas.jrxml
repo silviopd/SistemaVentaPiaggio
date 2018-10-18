@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte de Ventas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c4f95801-3844-4f96-aab4-340f1c69ff9a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select *,(case when estado ='E' then 'Emitido' else 'Anulado' end) as est,
+(case when cod_tipo_documento = '01' then 'FACTURA' else 'BOLETA' end) as cod_tipo
+ from venta
+order by 1]]>
+	</queryString>
+	<field name="numero_venta" class="java.lang.Integer"/>
+	<field name="numero_serie" class="java.lang.String"/>
+	<field name="cod_tipo_documento" class="java.lang.String"/>
+	<field name="codigo_cliente" class="java.lang.Integer"/>
+	<field name="nro_documento" class="java.lang.String"/>
+	<field name="fecha_venta" class="java.sql.Date"/>
+	<field name="porcentaje_igv" class="java.math.BigDecimal"/>
+	<field name="sub_total" class="java.math.BigDecimal"/>
+	<field name="igv" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="fecha_registro" class="java.sql.Date"/>
+	<field name="hora_registro" class="java.sql.Time"/>
+	<field name="codigo_usuario" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="est" class="java.lang.String"/>
+	<field name="cod_tipo" class="java.lang.String"/>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="numero_venta_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{numero_venta}]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="total_3" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="13" width="555" height="35" uuid="3098905b-f762-470d-bbc9-dc9d41afa76a"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE VENTAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="68" height="20" uuid="20bdcc66-3f60-4dbf-a67e-e5e03562f480"/>
+				<text><![CDATA[N*VENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="20" width="78" height="20" uuid="1179eebb-80da-426c-85a6-27359b7eabcf"/>
+				<text><![CDATA[FECHA VENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="20" width="100" height="20" uuid="4e43699b-4159-4d9f-8415-48f4dc71a7e0"/>
+				<text><![CDATA[SUB TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="20" width="41" height="20" uuid="c27bdc60-6c6e-442f-81da-f1b311e830e2"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="506" y="20" width="49" height="20" uuid="209431a8-a19d-451d-a789-c711e0c50bcf"/>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="68" y="20" width="62" height="20" uuid="046f7a20-62f5-4377-a5b1-bb1dd6707ebb"/>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="20" width="42" height="20" uuid="dba0de04-edd9-43a8-b4b0-5187d5ee681c"/>
+				<text><![CDATA[IGV]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="40" width="555" height="1" uuid="b08d119b-b686-4c6f-9b0b-ac1d953b8509"/>
+			</line>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="1b0c9bf0-f174-4199-9159-738b4edb9560"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="18" width="1" height="22" uuid="50a2abfa-f416-41c5-9d88-2df886eca5a1"/>
+			</line>
+			<line>
+				<reportElement x="554" y="19" width="1" height="22" uuid="4f91b7fe-17f0-4993-bd79-86cbba6c7134"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="10" width="25" height="20" uuid="83efc426-58b2-47e6-b212-d65c028ce1f7"/>
+				<textFieldExpression><![CDATA[$F{numero_venta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="10" width="78" height="20" uuid="9b09ed21-5772-4243-aa67-9b8e484e2b39"/>
+				<textFieldExpression><![CDATA[$F{fecha_venta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="10" width="100" height="20" uuid="eb41047e-6dbb-4fcf-8f66-7c80a60b3a9a"/>
+				<textFieldExpression><![CDATA[$F{sub_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="10" width="53" height="20" uuid="449d0fb7-7aee-42e8-a0c8-05d828c9e0bf"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="10" width="49" height="20" uuid="736b8e98-7435-4ecc-8910-f6e1eba52153"/>
+				<textFieldExpression><![CDATA[$F{est}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="10" width="62" height="20" uuid="570d39d4-6fa6-4a84-9776-a26a6568ffd1"/>
+				<textFieldExpression><![CDATA[$F{cod_tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="10" width="100" height="20" uuid="1f43ea56-5156-4e4f-8eee-5d86f1f77123"/>
+				<textFieldExpression><![CDATA[$F{igv}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="50" y="0" width="1" height="37" uuid="be5e5a6a-3616-449b-a664-8395a8031b1c"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="37" uuid="b6311c8a-943b-4dd7-b78b-57ab6857d4ff"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="76" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="209" y="15" width="80" height="20" uuid="d9d39787-289b-4a0a-b913-466fc1d3ab47"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pag "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="289" y="15" width="40" height="20" uuid="eab70873-6640-4025-9861-0a4161e2d60a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="11" width="76" height="20" uuid="aa770869-1050-4e28-9349-03bfb777a00c"/>
+				<text><![CDATA[Con un total de :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="11" width="100" height="20" uuid="62b7d8c8-e52b-4951-ae42-82b9188196c2"/>
+				<text><![CDATA[ventas registradas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="11" width="24" height="20" uuid="aded28a8-b9c4-47c9-9e09-efe46aa303b6"/>
+				<textFieldExpression><![CDATA[$V{numero_venta_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="41" width="120" height="20" uuid="198a77b1-f04c-4bcf-b7d0-937b1bb40381"/>
+				<text><![CDATA[Obteniendo un total de :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="41" width="100" height="20" uuid="f93be575-b008-4c6c-918b-958cf9366b37"/>
+				<textFieldExpression><![CDATA[$V{total_3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
